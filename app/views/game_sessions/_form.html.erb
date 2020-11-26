@@ -1,0 +1,39 @@
+<%= form_with(model: game_session, local: true) do |form| %>
+<% if game_session.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(game_session.errors.count, "error") %> prohibited this game_session from being saved:</h2>
+
+  <ul>
+    <% game_session.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<%= form.label :session_name %>
+<%= form.text_field :session_name %>
+
+<% if current_user.present? || @owner != 0 %>
+<%= form.hidden_field :owner, value: current_user.id %>
+<% else %>
+<%= form.hidden_field :owner, value: 0 %>
+<% end %>
+
+<%= form.label :number_of_players %>
+<%= form.number_field :number_of_players, :value => @number_of_players, min: 1, max: 10 %>
+<%= form.hidden_field :passcode, value: @generated_code %>
+
+<%= form.label :effect_buffer %>
+<%= form.number_field :effect_buffer, :value => @effect_buffer, min: 1, max: 5%>
+<div>
+  <div class="cell">
+    lock player pages <%= form.check_box :lock_player_pages, class: 'float-left' %>
+  </div>
+  <hr>
+  <div class="cell">
+    player display mode <%= form.check_box :player_display_mode, class: 'float-left' %>
+  </div>
+</div>
+<%= form.submit %>
+<% end %>

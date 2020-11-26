@@ -1,0 +1,29 @@
+<div class="cell">
+Player Name: <%= @player.name %>
+</div>
+<ul class="accordion dm-page-accordian" data-accordion>
+	<% @wands.each_with_index do |wand, i| %>
+
+	<li class="accordion-item" data-accordion-item>
+		<a href="#" class="accordion-title">
+			#<%= (i+1).to_s %> | <%= wand.description %>
+		</a>
+		<% if @game_session.player_display_mode == true %>
+
+		<div class="accordion-content" data-tab-content >
+			Request DM to reveal wand effects
+		</div>
+
+		<% else %>
+
+		<div class="accordion-content" data-tab-content >
+			<p><%= wand.effect %></p>
+			<p>Remaining Uses: XX</p>
+		</div>
+
+		<% end %>
+
+	</li>
+
+	<% end %>
+</ul>

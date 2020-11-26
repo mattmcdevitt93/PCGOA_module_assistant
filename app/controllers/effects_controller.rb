@@ -1,0 +1,75 @@
+class EffectsController < ApplicationController
+  before_action :set_effect, only: [:show, :edit, :update, :destroy]
+  before_action :admin_check, only: [:index, :show, :edit, :update, :destroy]
+
+  # GET /effects
+  # GET /effects.json
+  def index
+    @effects = Effect.paginate(page: params[:page], per_page: 500)
+  end
+
+  # GET /effects/1
+  # GET /effects/1.json
+  def show
+  end
+
+  # GET /effects/new
+  def new
+    @effect = Effect.new
+  end
+
+  # GET /effects/1/edit
+  def edit
+  end
+
+  # POST /effects
+  # POST /effects.json
+  def create
+    @effect = Effect.new(effect_params)
+
+    respond_to do |format|
+      if @effect.save
+        format.html { redirect_to @effect, notice: 'Effect was successfully created.' }
+        format.json { render :show, status: :created, location: @effect }
+      else
+        format.html { render :new }
+        format.json { render json: @effect.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH/PUT /effects/1
+  # PATCH/PUT /effects/1.json
+  def update
+    respond_to do |format|
+      if @effect.update(effect_params)
+        format.html { redirect_to @effect, notice: 'Effect was successfully updated.' }
+        format.json { render :show, status: :ok, location: @effect }
+      else
+        format.html { render :edit }
+        format.json { render json: @effect.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /effects/1
+  # DELETE /effects/1.json
+  def destroy
+    @effect.destroy
+    respond_to do |format|
+      format.html { redirect_to effects_url, notice: 'Effect was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_effect
+      @effect = Effect.find(params[:id])
+    end
+
+    # Only allow a list of trusted parameters through.
+    def effect_params
+      params.require(:effect).permit(:effect)
+    end
+end

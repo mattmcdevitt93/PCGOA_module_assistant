@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PCGOA D&D Assistant</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <link href="https://fonts.googleapis.com/css?family=Black+Ops+One" rel="stylesheet">
+  <%= favicon_link_tag 'tool-toggle.png' %>
+</head>
+<body>
+
+
+  <div class="grid-x" id="headder">
+    <div class="cell large-7 medium-12 small-12">
+      <div class='active' id='toolbar-switch' onclick="Module.toolbar_rotate()"></div>
+      <span>
+        <%= link_to "PCGOA Wand Assistant", root_path, :class => "title_text" %>
+      </span>
+    </div>
+
+    <div class="cell large-5 medium-12 small-12 login float-right">
+      <ul>
+      <% if user_signed_in? %>
+      <li>
+        Signed in as <%= current_user.email %>
+      </li>
+      <li>
+        <%= link_to('Edit Account', edit_user_registration_path, class: 'button login_button') %> |<%= link_to('Logout', destroy_user_session_path, :method => :delete, class: 'button login_button') %> | <%= current_user.id %><% if current_user.admin == true %><%= link_to '+', settings_path%><% end %>
+
+      </li>
+      <% else %>
+      <li>
+        <%= link_to('Login', new_user_session_path)  %>  
+      </li>
+      <li>
+        <%= link_to('Sign Up', new_user_registration_path )  %>
+      </li>
+      <% end %>
+    </ul>
+    </div>
+
+    <div class="title-bar small-12" data-responsive-toggle="responsive-menu" data-hide-for="medium">
+      <div class="menu-button">
+        <button class="menu-icon dark" type="button" data-toggle="responsive-menu"></button>
+        <div class="title-bar-title">Menu</div>
+      </div>
+    </div>
+
+      <div class="top-bar small-12" id="responsive-menu">
+      <div class="top-bar-left">
+          <% if user_signed_in? %>
+          <ul class="dropdown menu" data-dropdown-menu>
+
+          <% if current_user.admin %>
+          <li>
+          </li>
+          <% end %>
+
+           <li id="notice">
+            <a>
+              <%= notice %>
+            </a>
+          </li>
+        </ul>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+  <div id="yield" class="grid-x">
+    <%= yield %>
+  </div>
+
+</body>
+</html>

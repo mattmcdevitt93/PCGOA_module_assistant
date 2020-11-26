@@ -1,0 +1,38 @@
+<div>
+<div>
+  <strong>Session:</strong>
+  <%= @wand.session_id %>
+</div>
+
+<div>
+  <strong>Uses count:</strong>
+  <%= @wand.uses_count %>
+</div>
+
+<div>
+  <strong>Effect:</strong>
+  <%= @wand.effect_id %>
+</div>
+
+<div>
+  <strong>Player:</strong>
+  <%= @wand.player_id %>
+</div>
+
+<div>
+  <strong>Effect:</strong>
+  <%= @wand.effect %>
+</div>
+
+<div>
+  <strong>Duration:</strong>
+  <%= @wand.duration %>
+</div>
+
+<div>
+  <strong>Description:</strong>
+  <%= @wand.description %>
+</div>
+<%= link_to 'Edit', edit_wand_path(@wand) %> |
+<%= link_to 'Back', wands_path %>
+</div>

@@ -1,0 +1,32 @@
+<div class="cell">
+	<h1>User Index</h1>
+	<%= link_to 'Effects', effects_path, class: "button search_button" %>
+	<%= link_to 'Durations', durations_path, class: "button search_button" %>
+</div>
+<table class="cell">
+	<thead>
+		<tr>
+			<th>User</th>
+			<th>Admin?</th>
+			<th colspan='2'>Functions</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @users.each do |user_item| %>
+		<tr>
+			<%= form_for :user_item do |f| %>
+				<td class="">
+					<%= user_item.id %> ) <%= user_item.email %>
+				</td>
+				<td>
+					<%= user_item.admin %>
+				</td>
+				<td class=""> 
+					<%= f.submit "Set User As Admin", class: "default button float-left" %>
+				</td>
+			<% end %>
+		</tr>
+		<% end %>
+	</tbody>
+</table>

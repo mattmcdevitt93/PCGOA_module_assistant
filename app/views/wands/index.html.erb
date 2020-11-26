@@ -1,0 +1,39 @@
+<%= link_to "Reset All Wands", {:controller => "wands", :action => "index", :reset => true }, class: "default float-left warning button search_button" %>
+
+<h3>Wands</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Session</th>
+      <th>Uses count</th>
+      <th>Effect</th>
+      <th>Player</th>
+      <th>Effect</th>
+      <th>Duration</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @wands.each do |wand| %>
+      <tr>
+        <td><%= wand.session_id %></td>
+        <td><%= wand.uses_count %></td>
+        <td><%= wand.effect_id %></td>
+        <td><%= wand.player_id %></td>
+        <td><%= wand.effect %></td>
+        <td><%= wand.duration %></td>
+        <td><%= wand.description %></td>
+        <td><%= link_to 'Show', wand %></td>
+        <td><%= link_to 'Edit', edit_wand_path(wand) %></td>
+        <td><%= link_to 'Destroy', wand, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Wand', new_wand_path %>

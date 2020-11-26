@@ -1,0 +1,57 @@
+<% if params.has_key?(:s) %>
+
+<%= form_with(model: @wand, local: true) do |f| %>
+
+  <%= f.select :player_id, options_from_collection_for_select(@players, "id", "name"), class: 'float-left' %>
+  <%= f.select :effect_id, options_from_collection_for_select(@effects, "id", "effect"), class: 'float-left' %>
+  <%= f.select :duration, options_from_collection_for_select(@durations, "id", "duration"), class: 'float-left' %>
+  <%= f.hidden_field :session_id, value: @game_session_id.id %>
+  <%= f.hidden_field :uses_count, value: 0 %>
+  <%= f.label :description %>
+  <%= f.text_field :description %>
+  <%= f.submit "Add Wand to Player" %>
+<% end %>
+
+<% else %>
+
+<%= form_with(model: wand, local: true) do |form| %>
+<div class="field">
+  <%= form.label :session_id %>
+  <%= form.number_field :session_id %>
+</div>
+
+<div class="field">
+  <%= form.label :uses_count %>
+  <%= form.number_field :uses_count %>
+</div>
+
+Effect_ID
+<%= form.number_field :effect_id %>
+
+<div class="field">
+  <%= form.label :player_id %>
+  <%= form.number_field :player_id %>
+</div>
+
+<div class="field">
+  <%= form.label :effect %>
+  <%= form.text_field :effect %>
+</div>
+
+<div class="field">
+  <%= form.label :duration %>
+  <%= form.text_field :duration %>
+</div>
+
+<div class="field">
+  <%= form.label :description %>
+  <%= form.text_field :description %>
+</div>
+
+<div class="actions">
+  <%= form.submit %>
+</div>
+<% end %>
+
+<% end %>
+

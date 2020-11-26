@@ -1,0 +1,39 @@
+<h1>My Game Sessions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Session name</th>
+      <th>Owner</th>
+      <th>Number of players</th>
+      <th>Effects used</th>
+      <th>Passcode</th>
+      <th>Effect buffer</th>
+      <th>Lock player pages</th>
+      <th>Player display mode</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @game_sessions.each do |game_session| %>
+      <tr>
+        <td><%= link_to game_session.session_name, {:controller => "statics", :action => "dm_page", :id => game_session.id }, class: "" %></td>
+        <td><%= game_session.owner %></td>
+        <td><%= game_session.number_of_players %></td>
+        <td><%= game_session.effects_used %></td>
+        <td><%= game_session.passcode %></td>
+        <td><%= game_session.effect_buffer %></td>
+        <td><%= game_session.lock_player_pages %></td>
+        <td><%= game_session.player_display_mode %></td>
+        <td><%= link_to 'Show', game_session %></td>
+        <td><%= link_to 'Edit', edit_game_session_path(game_session) %></td>
+        <td><%= link_to 'Destroy', game_session, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Game Session', new_game_session_path %>

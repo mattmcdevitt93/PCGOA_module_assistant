@@ -1,0 +1,79 @@
+<div class="dm-page-accordian">
+	<ul class="accordion" data-accordion>
+
+		<li class="accordion-item" data-accordion-item>
+			<a href="#" class="accordion-title">DM Info</a>
+			<div class="accordion-content" data-tab-content>
+
+			<p>Name: <%= @game_session_id.session_name %></p>
+			<p>Owner: <%= User.find(@game_session_id.owner).email.to_s %></p>
+			<p><%= link_to 'Edit Session', edit_game_session_path(@game_session_id) %></p>
+
+			</div>
+		</li>
+
+
+		<li class="accordion-item is-active" data-accordion-item>
+			<a href="#" class="accordion-title">
+				Add New Wand
+			</a>
+			<div class="accordion-content" data-tab-content >
+
+				If you need to reroll the effect buffer, refresh the page.
+				<%= form_with(model: @wand, local: true) do |f| %>
+
+				<%= f.select :player_id, options_from_collection_for_select(@players, "id", "name"), class: 'float-left' %>
+				<%= f.select :effect_id, options_from_collection_for_select(@effects, "id", "effect"), class: 'float-left' %>
+				<%= f.select :duration, options_from_collection_for_select(@durations, "id", "duration"), class: 'float-left' %>
+				<%= f.hidden_field :session_id, value: @game_session_id.id %>
+				<%= f.hidden_field :uses_count, value: 0 %>
+				<%= f.label :description %>
+				<%= f.text_field :description, value: @description %>
+				<%= f.submit "Add Wand to Player" %>
+				<% end %>
+
+			</div>
+		</li>
+
+		<% @players.each do |player| %>
+
+		<li class="accordion-item" data-accordion-item>
+			<a href="#" class="accordion-title cell auto">
+				<%= player.id %> | <%= player.name %>
+			</a>
+			<div class="accordion-content accordian-light" data-tab-content>
+				<%= link_to "Edit Player", edit_player_path(player) %> | <%= link_to "Reset Player Wands", edit_player_path(player) %> | 
+				<%= link_to "Player Page", {:controller => "statics", :action => "player_page", :p => player.unique_link }, class: "" %>
+
+				 [Clipboard Copy]<span class="float-right">Unique ID: <%= player.unique_link %> [Clipboard Copy] </span>
+			</div>		
+
+			<% player_link_name = "@_" + player.unique_link.to_s %>
+				<% if defined?(player_link_name) && player_link_name.present? %>
+				<% Rails.logger.info "Hash for Player " + player.id.to_s + " does exist. | " + player_link_name.to_s  %>
+				<% Rails.logger.info instance_variable_get(player_link_name) %>
+				<% @player_wands = instance_variable_get(player_link_name) %>
+					<% if @player_wands != [] %>
+						<% @player_wands.each_with_index do |wands, i| %>
+
+						<div class="accordion-content accordian-dark" data-tab-content>
+							<%= (i+1).to_s %>. (#<%= wands[2] %>) <%= wands[3] %> |  <%= link_to "Delete", wand_path(wands[0]),  method: :delete  %>
+						</div>
+						<div class="accordion-content accordian-light" data-tab-content>
+							<%= wands[5] %>
+						</div>
+
+						<% end %>
+					<% else %>
+						<div class="accordion-content accordian-light" data-tab-content>
+							They have no wands, get more from the wizard.
+						</div>
+					<% end %>
+				<% else %>
+				<% Rails.logger.info "Hash for Player " + player.id.to_s + " does not exist! | " + player.unique_link.to_s %>
+				<% end %>
+		</li>
+
+		<% end %>
+	</ul>
+</div>

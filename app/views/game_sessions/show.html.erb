@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Session name:</strong>
+  <%= @game_session.session_name %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @game_session.owner %>
+</p>
+
+<p>
+  <strong>Number of players:</strong>
+  <%= @game_session.number_of_players %>
+</p>
+
+<p>
+  <strong>Effects used:</strong>
+  <%= @game_session.effects_used %>
+</p>
+
+<p>
+  <strong>Passcode:</strong>
+  <%= @game_session.passcode %>
+</p>
+
+<p>
+  <strong>Effect buffer:</strong>
+  <%= @game_session.effect_buffer %>
+</p>
+
+<p>
+  <strong>Lock player pages:</strong>
+  <%= @game_session.lock_player_pages %>
+</p>
+
+<p>
+  <strong>Player display mode:</strong>
+  <%= @game_session.player_display_mode %>
+</p>
+
+<%= link_to 'Edit', edit_game_session_path(@game_session) %> |
+<%= link_to 'Back', game_sessions_path %>
